@@ -17,4 +17,14 @@ app.get('/api/students', (req,res)=>{
     res.json(students);
 })
 
- 
+ //ADDING STUDENTS; route used is POST
+app.post('/api/students',(req,res)=>{
+    const newstudent={
+        id: students.length+1,
+        name: req.body.name,
+        age: req.body.age,
+    }
+    students.push(newstudent);
+    res.status(201).json(newstudent);
+
+})
