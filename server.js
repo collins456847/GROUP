@@ -28,3 +28,29 @@ app.post('/api/students',(req,res)=>{
     res.status(201).json(newstudent);
 
 })
+// DELETING STUDENTS; route used is DELETE
+app.delete('/api/students/:id', (req, res) => {
+    const studentId = parseInt(req.params.id);
+
+    const studentExists = students.some(student => student.id === studentId);
+
+    if (!studentExists) {
+        return res.status(404).json({
+            message: "Student doesn't exist"
+        });
+    }
+
+    students = students.filter(student => student.id !== studentId);
+
+    res.status(200).json({
+        message: "Student removed successfully"
+    });
+});
+
+// START SERVER
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+
+
