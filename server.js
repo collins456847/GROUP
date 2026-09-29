@@ -28,6 +28,23 @@ app.post('/api/students',(req,res)=>{
     res.status(201).json(newstudent);
 
 })
+
+//EDITING STUDENTS; route used is PUT. update student info using their id
+app.patch('/api/students/:id', (req,res)=>{
+    const stId= parseInt(req.params.id);
+    const student= students.find(s=>s.id===stId);
+    if(!student){
+        return res.status(404).json({message: "Student doesn't exist :("});
+    }
+    if(req.body.name){
+        student.name= req.body.name;
+    }
+
+    if(req.body.age){
+        student.age= req.body.age;
+    }
+    res.json({message: "Student updated ;)"})
+    
 // DELETING STUDENTS; route used is DELETE
 app.delete('/api/students/:id', (req, res) => {
     const studentId = parseInt(req.params.id);
